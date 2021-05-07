@@ -1,0 +1,191 @@
+version: '3'
+
+networks:
+
+  euslugi-net:
+    driver: bridge
+
+services:
+
+  euslugi-zarzadzanie-postgres:
+    build:
+      context: ./zarzadzanie/compose/postgres
+    image: euslugi-zarzadzanie-postgres
+    restart: always
+    container_name: euslugi-zarzadzanie-postgres
+    environment:
+      - POSTGRES_PASSWORD=MB8V5n8ZDwojmvQk
+      - TZ=Europe/Warsaw
+    ports:
+      - 0.0.0.0:25432:5432
+    networks:
+      - euslugi-net
+
+    volumes:
+      - ./zarzadzanie/volumes/postgres/:/var/lib/postgresql/data
+    tty: true
+
+  euslugi-zarzadzanie-wildfly:
+    build:
+        context: ./zarzadzanie/compose/wildfly
+        args:
+          EUSLUGI_PASSWORD: bl68AfkFJEuQdf1f
+          ADMIN_PASSWORD: 65m9tUqoMgtAhr3M
+    image: euslugi-zarzadzanie-wildfly
+    container_name: euslugi-zarzadzanie-wildfly
+    volumes:
+      - ./zarzadzanie/volumes/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
+    working_dir: /opt/jboss/wildfly/
+    networks:
+      - euslugi-net
+    ports:
+      # http
+      - 0.0.0.0:28080:8080
+      # management-http
+      - 0.0.0.0:29990:9990
+      # debugger
+      - 0.0.0.0:28787:8787
+    environment:
+      - POSTGRES_USER=softmedica
+      - POSTGRES_PASSWORD=19P8VqX8OEcRZDp6
+      - POSTGRES_CONNECTION=jdbc:postgresql://euslugi-zarzadzanie-postgres:5432/euslugi
+      - TZ=Europe/Warsaw
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=465
+      - MAIL_SSL=true
+      - MAIL_TLS=false
+      - MAIL_USER=terminarz.softmedica@gmail.com
+      - MAIL_PASSWORD=k2h2ohFqQ6x3H6vPKZ0nMwxy0C72fY4o
+      - JAVA_OPTS=-Xms256m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=*:8787,server=y,suspend=n
+    links:
+      - euslugi-zarzadzanie-postgres
+    restart: always
+    depends_on:
+      - euslugi-zarzadzanie-postgres
+
+  euslugi-terminarz-postgres:
+    build:
+      context: ./terminarz/compose/postgres
+    image: euslugi-terminarz-postgres
+    restart: always
+    container_name: euslugi-terminarz-postgres
+    environment:
+      - POSTGRES_PASSWORD=MB8V5n8ZDwojmvQk
+      - TZ=Europe/Warsaw
+    ports:
+      - 0.0.0.0:35432:5432
+    networks:
+      - euslugi-net
+    volumes:
+      - ./terminarz/volumes/postgres/:/var/lib/postgresql/data
+    tty: true
+
+  euslugi-terminarz-wildfly:
+    build:
+      context: ./terminarz/compose/wildfly
+      args:
+        ADMIN_PASSWORD: 65m9tUqoMgtAhr3M
+    image: euslugi-terminarz-wildfly
+    container_name: euslugi-terminarz-wildfly
+    volumes:
+      - ./terminarz/volumes/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
+    working_dir: /opt/jboss/wildfly/
+    networks:
+      - euslugi-net
+    ports:
+      # http
+      - 0.0.0.0:38080:8080
+      # management-http
+      - 0.0.0.0:39990:9990
+      # debugger
+      - 0.0.0.0:38787:8787
+    environment:
+      - POSTGRES_USER=softmedica
+      - POSTGRES_PASSWORD=19P8VqX8OEcRZDp6
+      - POSTGRES_CONNECTION=jdbc:postgresql://euslugi-terminarz-postgres:5432/terminarz
+      - TZ=Europe/Warsaw
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=465
+      - MAIL_SSL=true
+      - MAIL_TLS=false
+      - MAIL_USER=terminarz.softmedica@gmail.com
+      - MAIL_PASSWORD=k2h2ohFqQ6x3H6vPKZ0nMwxy0C72fY4o
+      - JAVA_OPTS=-Xms256m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=*:8787,server=y,suspend=n
+    links:
+      - euslugi-terminarz-postgres
+    restart: always
+    depends_on:
+      - euslugi-terminarz-postgres
+
+  euslugi-wyniki-postgres:
+    build:
+      context: ./wyniki/compose/postgres
+    image: euslugi-wyniki-postgres
+    restart: always
+    container_name: euslugi-wyniki-postgres
+    environment:
+      - POSTGRES_PASSWORD=MB8V5n8ZDwojmvQk
+      - TZ=Europe/Warsaw
+    ports:
+      - 0.0.0.0:55432:5432
+    networks:
+      - euslugi-net
+
+    volumes:
+      - ./wyniki/volumes/postgres/:/var/lib/postgresql/data
+    tty: true
+
+  euslugi-wyniki-wildfly:
+    build:
+      context: ./wyniki/compose/wildfly
+      args:
+        ADMIN_PASSWORD: 65m9tUqoMgtAhr3M
+        EUSLUGI_PASSWORD: bl68AfkFJEuQdf1f
+    image: euslugi-wyniki-wildfly
+    container_name: euslugi-wyniki-wildfly
+    volumes:
+      - ./wyniki/volumes/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
+    working_dir: /opt/jboss/wildfly/
+    networks:
+      - euslugi-net
+    ports:
+      # http
+      - 0.0.0.0:58080:8080
+      # management-http
+      - 0.0.0.0:59990:9990
+      # debugger
+      - 0.0.0.0:58787:8787
+    environment:
+      - POSTGRES_USER=softmedica
+      - POSTGRES_PASSWORD=19P8VqX8OEcRZDp6
+      - POSTGRES_CONNECTION=jdbc:postgresql://euslugi-wyniki-postgres:5432/wyniki
+      - TZ=Europe/Warsaw
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=465
+      - MAIL_SSL=true
+      - MAIL_TLS=false
+      - MAIL_USER=terminarz.softmedica@gmail.com
+      - MAIL_PASSWORD=k2h2ohFqQ6x3H6vPKZ0nMwxy0C72fY4o
+      - JAVA_OPTS=-Xms256m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=*:8787,server=y,suspend=n
+    links:
+      - euslugi-wyniki-postgres
+    restart: always
+    depends_on:
+      - euslugi-wyniki-postgres
+
+  euslugi-proxy:
+    build:
+      context: ./proxy/compose/nginx
+    image: euslugi-proxy
+    restart: always
+    container_name: euslugi-proxy
+    ports:
+      - 0.0.0.0:80:80
+      # - 0.0.0.0:443:443
+    networks:
+      - euslugi-net
+    tty: true
+    depends_on:
+      - euslugi-zarzadzanie-wildfly
+      - euslugi-terminarz-wildfly
+      - euslugi-wyniki-wildfly

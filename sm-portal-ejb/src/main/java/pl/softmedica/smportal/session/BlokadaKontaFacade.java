@@ -19,7 +19,7 @@ import pl.softmedica.smportal.jpa.BlokadaKonta;
 @Stateful(name = "BlokadaKontaFacade")
 public class BlokadaKontaFacade extends AbstractFacade<BlokadaKonta> implements BlokadaKontaFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

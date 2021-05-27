@@ -48,7 +48,7 @@ public interface UprawnieniaFacadeLocal {
     static UprawnieniaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         UprawnieniaFacadeLocal bean = (UprawnieniaFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/UprawnieniaFacade");
+                .lookup("java:app/smportal-ejb/UprawnieniaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

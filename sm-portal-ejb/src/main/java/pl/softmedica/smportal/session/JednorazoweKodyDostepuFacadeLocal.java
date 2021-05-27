@@ -50,7 +50,7 @@ public interface JednorazoweKodyDostepuFacadeLocal {
     static JednorazoweKodyDostepuFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         JednorazoweKodyDostepuFacadeLocal bean = (JednorazoweKodyDostepuFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/JednorazoweKodyDostepuFacade");
+                .lookup("java:app/smportal-ejb/JednorazoweKodyDostepuFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

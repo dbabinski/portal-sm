@@ -87,11 +87,6 @@
             <artifactId>sm-portal-entities</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>euslugi-zarzadzanie-remote</artifactId>
-            <version>1.0.0</version>
-        </dependency>-->
     </dependencies>
 
     <build>

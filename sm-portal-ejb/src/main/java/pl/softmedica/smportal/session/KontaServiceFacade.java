@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 
 public class KontaServiceFacade implements KontaServiceFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
 
     @Override

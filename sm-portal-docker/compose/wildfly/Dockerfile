@@ -4,8 +4,8 @@ LABEL maintainer k.d.pradzynski@softmedica.pl
 # tworzenie użytkownika
 ARG ADMIN_PASSWORD
 RUN /opt/jboss/wildfly/bin/add-user.sh admin ${ADMIN_PASSWORD} --silent
-ARG EUSLUGI_PASSWORD
-RUN /opt/jboss/wildfly/bin/add-user.sh -a euslugi ${EUSLUGI_PASSWORD} --silent
+ARG SMPORTAL_PASSWORD
+RUN /opt/jboss/wildfly/bin/add-user.sh -a smportal ${SMPORTAL_PASSWORD} --silent
 # sterowniki JDBC
 ADD modules /opt/jboss/wildfly/modules
 # plik konfiguracyjny wildfly

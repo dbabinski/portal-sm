@@ -52,7 +52,7 @@ public interface ZmianaHaslaFacadeLocal {
     static ZmianaHaslaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         ZmianaHaslaFacadeLocal bean = (ZmianaHaslaFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/ZmianaHaslaFacade");
+                .lookup("java:app/smportal-ejb/ZmianaHaslaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

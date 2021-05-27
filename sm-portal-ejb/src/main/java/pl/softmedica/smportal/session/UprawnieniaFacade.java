@@ -19,7 +19,7 @@ import pl.softmedica.smportal.jpa.Uprawnienia;
 @Stateful(name = "UprawnieniaFacade")
 public class UprawnieniaFacade extends AbstractFacade<Uprawnienia> implements UprawnieniaFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

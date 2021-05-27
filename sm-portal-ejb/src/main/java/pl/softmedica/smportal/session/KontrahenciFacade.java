@@ -19,7 +19,7 @@ import pl.softmedica.smportal.jpa.Kontrahenci;
 @Stateful(name = "KontrahenciFacade")
 public class KontrahenciFacade extends AbstractFacade<Kontrahenci> implements KontrahenciFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

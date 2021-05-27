@@ -47,7 +47,7 @@ public interface LogowaniaFacadeLocal {
     static LogowaniaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         LogowaniaFacadeLocal bean = (LogowaniaFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/LogowaniaFacade");
+                .lookup("java:app/sm-portal-ejb/LogowaniaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

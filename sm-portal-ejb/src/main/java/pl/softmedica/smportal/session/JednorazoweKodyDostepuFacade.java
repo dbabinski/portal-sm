@@ -22,7 +22,7 @@ import pl.softmedica.smportal.jpa.JednorazoweKodyDostepu;
 @Stateful(name = "JednorazoweKodyDostepuFacade")
 public class JednorazoweKodyDostepuFacade extends AbstractFacade<JednorazoweKodyDostepu> implements JednorazoweKodyDostepuFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

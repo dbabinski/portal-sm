@@ -20,7 +20,7 @@ import pl.softmedica.smportal.jpa.Grupy;
 @Stateful(name = "GrupyFacade")
 public class GrupyFacade extends AbstractFacade<Grupy> implements GrupyFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

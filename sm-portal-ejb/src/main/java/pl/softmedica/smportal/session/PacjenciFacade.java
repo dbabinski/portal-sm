@@ -25,7 +25,7 @@ import pl.softmedica.smportal.jpa.Pacjenci;
 @Local(PacjenciFacadeLocal.class)
 public class PacjenciFacade extends AbstractFacade<Pacjenci> implements PacjenciFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

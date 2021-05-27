@@ -20,7 +20,7 @@ import pl.softmedica.smportal.jpa.ZmianaHasla;
 @Stateful(name = "ZmianaHaslaFacade")
 public class ZmianaHaslaFacade extends AbstractFacade<ZmianaHasla> implements ZmianaHaslaFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

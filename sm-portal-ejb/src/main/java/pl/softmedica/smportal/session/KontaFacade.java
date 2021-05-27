@@ -35,7 +35,7 @@ import pl.softmedica.smportal.jpa.Mail;
 @Stateful(name = "KontaFacade")
 public class KontaFacade extends AbstractFacade<Konta> implements KontaFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
     @EJB

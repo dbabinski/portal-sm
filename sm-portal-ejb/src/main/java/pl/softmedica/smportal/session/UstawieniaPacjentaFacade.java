@@ -19,7 +19,7 @@ import pl.softmedica.smportal.jpa.UstawieniaPacjenta;
 @Stateful(name = "UstawieniaPacjentaFacade")
 public class UstawieniaPacjentaFacade extends AbstractFacade<UstawieniaPacjenta> implements UstawieniaPacjentaFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

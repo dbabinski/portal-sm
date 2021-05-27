@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 
 public class PacjenciServiceFacade implements PacjenciServiceFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
 
     @Override

@@ -19,7 +19,7 @@ import pl.softmedica.smportal.jpa.Pracownicy;
 @Stateful(name = "PracownicyFacade")
 public class PracownicyFacade extends AbstractFacade<Pracownicy> implements PracownicyFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

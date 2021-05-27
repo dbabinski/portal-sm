@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="eUslugi-Zarzadzanie-EJB-PU" transaction-type="JTA">
+  <persistence-unit name="sm-portal-EJB-PU" transaction-type="JTA">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <jta-data-source>java:jboss/datasources/eUslugi-Zarzadzanie</jta-data-source>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.BlokadaKonta</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Dostep</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Grupy</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.KomorkiOrganizacyjne</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Konfiguracja</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Konta</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Pacjenci</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.ParametryHasla</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.TypyDokumentow</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.TypyEDokumentow</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.TypyGrup</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.TypyKomunikatow</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Uprawnienia</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.UprawnieniaKonta</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.UstawieniaPacjenta</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Kontrahenci</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Pracownicy</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.JednorazoweKodyDostepu</class>    
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.KonfiguracjaSerweraPoczty</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.ZmianaHasla</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.PacjenciPowiazania</class>    
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Autentykacja</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.KonfiguracjaSerweraSms</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.SzablonyPowiadomien</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.TypyPowiadomien</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.portal.Aktualnosci</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.portal.Regulamin</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.portal.Tresci</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Logi</class>
-    <class>pl.softmedica.euslugi.zarzadzanie.jpa.Logowania</class>
+    <jta-data-source>java:jboss/datasources/smportal</jta-data-source>
+    <class>pl.softmedica.smportal.jpa.BlokadaKonta</class>
+    <class>pl.softmedica.smportal.jpa.Dostep</class>
+    <class>pl.softmedica.smportal.jpa.Grupy</class>
+    <class>pl.softmedica.smportal.jpa.KomorkiOrganizacyjne</class>
+    <class>pl.softmedica.smportal.jpa.Konfiguracja</class>
+    <class>pl.softmedica.smportal.jpa.Konta</class>
+    <class>pl.softmedica.smportal.jpa.Pacjenci</class>
+    <class>pl.softmedica.smportal.jpa.ParametryHasla</class>
+    <class>pl.softmedica.smportal.jpa.TypyDokumentow</class>
+    <class>pl.softmedica.smportal.jpa.TypyEDokumentow</class>
+    <class>pl.softmedica.smportal.jpa.TypyGrup</class>
+    <class>pl.softmedica.smportal.jpa.TypyKomunikatow</class>
+    <class>pl.softmedica.smportal.jpa.Uprawnienia</class>
+    <class>pl.softmedica.smportal.jpa.UprawnieniaKonta</class>
+    <class>pl.softmedica.smportal.jpa.UstawieniaPacjenta</class>
+    <class>pl.softmedica.smportal.jpa.Kontrahenci</class>
+    <class>pl.softmedica.smportal.jpa.Pracownicy</class>
+    <class>pl.softmedica.smportal.jpa.JednorazoweKodyDostepu</class>    
+    <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraPoczty</class>
+    <class>pl.softmedica.smportal.jpa.ZmianaHasla</class>
+    <class>pl.softmedica.smportal.jpa.PacjenciPowiazania</class>    
+    <class>pl.softmedica.smportal.jpa.Autentykacja</class>
+    <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraSms</class>
+    <class>pl.softmedica.smportal.jpa.SzablonyPowiadomien</class>
+    <class>pl.softmedica.smportal.jpa.TypyPowiadomien</class>
+    <class>pl.softmedica.smportal.jpa.portal.Aktualnosci</class>
+    <class>pl.softmedica.smportal.jpa.portal.Regulamin</class>
+    <class>pl.softmedica.smportal.jpa.portal.Tresci</class>
+    <class>pl.softmedica.smportal.jpa.Logi</class>
+    <class>pl.softmedica.smportal.jpa.Logowania</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

@@ -48,7 +48,7 @@ public interface PracownicyFacadeLocal {
     static PracownicyFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         PracownicyFacadeLocal bean = (PracownicyFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/PracownicyFacade");
+                .lookup("java:app/smportal-ejb/PracownicyFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

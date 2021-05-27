@@ -174,7 +174,7 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/eUslugi-Zarzadzanie" pool-name="eUslugiZarzadzanieDS" enabled="true" use-java-context="true" statistics-enabled="true">
+                <datasource jndi-name="java:jboss/datasources/smportal" pool-name="smportalDS" enabled="true" use-java-context="true" statistics-enabled="true">
                     <connection-url>${env.POSTGRES_CONNECTION}</connection-url>
                     <driver>postgresql</driver>
                     <security>
@@ -434,8 +434,8 @@
             <mail-session name="default" jndi-name="java:jboss/mail/Default">
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
-            <mail-session name="euslugi_outgoing" jndi-name="java:jboss/mail/mail-euslugi_outgoing" from="e-Usługi">
-                <smtp-server outbound-socket-binding-ref="euslugi_outgoing-smtp" ssl="${env.MAIL_SSL}" tls="${env.MAIL_TLS}" username="${env.MAIL_USER}" password="${env.MAIL_PASSWORD}"/>
+            <mail-session name="smportal_outgoing" jndi-name="java:jboss/mail/mail-smportal_outgoing" from="SM-Portal">
+                <smtp-server outbound-socket-binding-ref="smportal_outgoing-smtp" ssl="${env.MAIL_SSL}" tls="${env.MAIL_TLS}" username="${env.MAIL_USER}" password="${env.MAIL_PASSWORD}"/>
             </mail-session>
         </subsystem>
         <subsystem xmlns="urn:wildfly:microprofile-config-smallrye:1.0"/>
@@ -569,7 +569,7 @@
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
-        <outbound-socket-binding name="euslugi_outgoing-smtp">
+        <outbound-socket-binding name="smportal_outgoing-smtp">
             <remote-destination host="${env.MAIL_HOST}" port="${env.MAIL_PORT}"/>
         </outbound-socket-binding>
     </socket-binding-group>

@@ -50,7 +50,7 @@ public interface KonfiguracjaSerweraSmsFacadeLocal {
     static KonfiguracjaSerweraSmsFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         KonfiguracjaSerweraSmsFacadeLocal bean = (KonfiguracjaSerweraSmsFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/KonfiguracjaSerweraSmsFacade");
+                .lookup("java:app/smportal-ejb/KonfiguracjaSerweraSmsFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

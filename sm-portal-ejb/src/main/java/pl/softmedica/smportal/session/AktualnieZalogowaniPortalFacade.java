@@ -34,7 +34,7 @@ import pl.softmedica.smportal.jpa.AktualnieZalogowani;
 @Startup
 public class AktualnieZalogowaniPortalFacade implements AktualnieZalogowaniPortalFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 
     private ConcurrentHashMap<String, AktualnieZalogowani> zalogowani = new ConcurrentHashMap<>();

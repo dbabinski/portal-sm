@@ -20,7 +20,7 @@ import pl.softmedica.smportal.jpa.portal.Aktualnosci;
 @Stateful(name = "AktualnosciFacade")
 public class AktualnosciFacade extends AbstractFacade<Aktualnosci> implements AktualnosciFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

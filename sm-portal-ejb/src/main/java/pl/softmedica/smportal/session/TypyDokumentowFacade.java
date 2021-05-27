@@ -20,7 +20,7 @@ import pl.softmedica.smportal.jpa.TypyDokumentow;
 @Stateful(name = "TypyDokumentowFacade")
 public class TypyDokumentowFacade extends AbstractFacade<TypyDokumentow> implements TypyDokumentowFacadeLocal {
 
-    @PersistenceContext(unitName = "eUslugi-Zarzadzanie-EJB-PU")
+    @PersistenceContext(unitName = "sm-portal-EJB-PU")
     private EntityManager em;
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 

@@ -50,7 +50,7 @@ public interface TresciFacadeLocal {
     static TresciFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         TresciFacadeLocal bean = (TresciFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/TresciFacade");
+                .lookup("java:app/smportal-ejb/TresciFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

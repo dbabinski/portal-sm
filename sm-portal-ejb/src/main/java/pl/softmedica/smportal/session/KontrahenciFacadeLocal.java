@@ -48,7 +48,7 @@ public interface KontrahenciFacadeLocal {
     static KontrahenciFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         KontrahenciFacadeLocal bean = (KontrahenciFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/KontrahenciFacade");
+                .lookup("java:app/sm-portal-ejb/KontrahenciFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

@@ -50,7 +50,7 @@ public interface RegulaminFacadeLocal {
     static RegulaminFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         RegulaminFacadeLocal bean = (RegulaminFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/RegulaminFacade");
+                .lookup("java:app/sm-portal-ejb/RegulaminFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

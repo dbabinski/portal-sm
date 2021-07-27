@@ -50,7 +50,7 @@ public interface GrupyFacadeLocal {
     static GrupyFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         GrupyFacadeLocal bean = (GrupyFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/GrupyFacade");
+                .lookup("java:app/sm-portal-ejb/GrupyFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

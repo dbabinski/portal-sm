@@ -50,7 +50,7 @@ public interface DostepFacadeLocal {
     static DostepFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         DostepFacadeLocal bean = (DostepFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/DostepFacade");
+                .lookup("java:app/sm-portal-ejb/DostepFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

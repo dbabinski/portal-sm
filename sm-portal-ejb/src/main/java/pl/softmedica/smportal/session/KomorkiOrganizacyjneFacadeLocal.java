@@ -52,7 +52,7 @@ public interface KomorkiOrganizacyjneFacadeLocal {
     static KomorkiOrganizacyjneFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         KomorkiOrganizacyjneFacadeLocal bean = (KomorkiOrganizacyjneFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/KomorkiOrganizacyjneFacade");
+                .lookup("java:app/sm-portal-ejb/KomorkiOrganizacyjneFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

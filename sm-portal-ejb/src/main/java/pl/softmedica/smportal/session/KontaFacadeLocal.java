@@ -61,7 +61,7 @@ public interface KontaFacadeLocal {
     static KontaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         KontaFacadeLocal bean = (KontaFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/KontaFacade");
+                .lookup("java:app/sm-portal-ejb/KontaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

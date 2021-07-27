@@ -51,7 +51,7 @@ public interface BlokadaKontaFacadeLocal {
     static BlokadaKontaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         BlokadaKontaFacadeLocal bean = (BlokadaKontaFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/BlokadaKontaFacade");
+                .lookup("java:app/sm-portal-ejb/BlokadaKontaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

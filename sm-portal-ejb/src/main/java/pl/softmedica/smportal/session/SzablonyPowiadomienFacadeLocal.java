@@ -52,7 +52,7 @@ public interface SzablonyPowiadomienFacadeLocal {
     static SzablonyPowiadomienFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         SzablonyPowiadomienFacadeLocal bean = (SzablonyPowiadomienFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/SzablonyPowiadomienFacade");
+                .lookup("java:app/sm-portal-ejb/SzablonyPowiadomienFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

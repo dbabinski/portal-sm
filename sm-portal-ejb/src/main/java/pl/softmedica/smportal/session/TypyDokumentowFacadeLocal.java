@@ -52,7 +52,7 @@ public interface TypyDokumentowFacadeLocal {
     static TypyDokumentowFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         TypyDokumentowFacadeLocal bean = (TypyDokumentowFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/TypyDokumentowFacade");
+                .lookup("java:app/sm-portal-ejb/TypyDokumentowFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

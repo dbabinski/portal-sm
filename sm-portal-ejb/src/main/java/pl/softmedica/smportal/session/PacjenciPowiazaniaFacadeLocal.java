@@ -51,7 +51,7 @@ public interface PacjenciPowiazaniaFacadeLocal {
     static PacjenciPowiazaniaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         PacjenciPowiazaniaFacadeLocal bean = (PacjenciPowiazaniaFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/PacjenciPowiazaniaFacade");
+                .lookup("java:app/sm-portal-ejb/PacjenciPowiazaniaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

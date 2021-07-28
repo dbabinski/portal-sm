@@ -54,7 +54,7 @@ public interface TypyPowiadomienFacadeLocal {
     static TypyPowiadomienFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         TypyPowiadomienFacadeLocal bean = (TypyPowiadomienFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/TypyPowiadomienFacade");
+                .lookup("java:app/sm-portal-ejb/TypyPowiadomienFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

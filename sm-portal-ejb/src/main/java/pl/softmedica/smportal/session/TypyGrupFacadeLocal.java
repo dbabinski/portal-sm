@@ -52,7 +52,7 @@ public interface TypyGrupFacadeLocal {
     static TypyGrupFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         TypyGrupFacadeLocal bean = (TypyGrupFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/TypyGrupFacade");
+                .lookup("java:app/sm-portal-ejb/TypyGrupFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

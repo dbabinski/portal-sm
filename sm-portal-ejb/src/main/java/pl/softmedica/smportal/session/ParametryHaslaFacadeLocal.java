@@ -53,7 +53,7 @@ public interface ParametryHaslaFacadeLocal {
     static ParametryHaslaFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         ParametryHaslaFacadeLocal bean = (ParametryHaslaFacadeLocal) initialContext
-                .lookup("java:app/smportal-ejb/KontaFacade");
+                .lookup("java:app/sm-portal-ejb/KontaFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

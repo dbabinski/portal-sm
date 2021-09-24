@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
 import pl.softmedica.smportal.jpa.portal.Regulamin;
 import pl.softmedica.smportal.jpa.portal.Tresci;
 import pl.softmedica.smportal.rest.Odpowiedz;

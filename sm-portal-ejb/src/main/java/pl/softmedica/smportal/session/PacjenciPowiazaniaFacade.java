@@ -11,7 +11,7 @@ import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pl.softmedica.ea.common.session.AbstractFacade;
+import pl.softmedica.smportal.common.session.AbstractFacade;
 import pl.softmedica.smportal.jpa.PacjenciPowiazania;
 
 /**

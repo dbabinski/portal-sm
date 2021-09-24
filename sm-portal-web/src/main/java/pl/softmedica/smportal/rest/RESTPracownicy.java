@@ -21,11 +21,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import pl.softmedica.ea.common.utilities.JSONArrayBuilder;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
-import pl.softmedica.ea.common.utilities.JSONObjectExt;
-import pl.softmedica.ea.common.utilities.Utilities;
-import pl.softmedica.ea.common.utilities.Validator;
+import pl.softmedica.smportal.common.utilities.JSONArrayBuilder;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONObjectExt;
+import pl.softmedica.smportal.common.utilities.Utilities;
+import pl.softmedica.smportal.common.utilities.Validator;
 import pl.softmedica.smportal.jpa.Pracownicy;
 import pl.softmedica.smportal.session.PracownicyFacadeLocal;
 

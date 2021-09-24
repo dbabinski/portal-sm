@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import pl.softmedica.ea.common.utilities.Utilities;
+import pl.softmedica.smportal.common.utilities.Utilities;
 import pl.softmedica.smportal.jpa.AktualnieZalogowani;
 
 /**

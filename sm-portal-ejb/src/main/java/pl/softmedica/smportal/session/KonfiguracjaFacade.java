@@ -10,7 +10,7 @@ import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.softmedica.ea.common.session.AbstractFacade;
+import pl.softmedica.smportal.common.session.AbstractFacade;
 import pl.softmedica.smportal.jpa.Konfiguracja;
 
 /**

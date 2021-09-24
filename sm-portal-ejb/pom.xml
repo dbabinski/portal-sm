@@ -109,38 +109,6 @@
         </plugins>
     </build>
 
-    <distributionManagement>
-        <repository>
-            <id>softmedica-releases</id>
-            <url>http://softmedica.no-ip.biz:8081/artifactory/softmedica-releases/</url>
-        </repository>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>softmedica-releases</id>
-            <name>SoftMedica Releases</name>
-            <url>http://softmedica.no-ip.biz:8081/artifactory/softmedica-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>softmedica-releases</id>
-            <name>SoftMedica Releases</name>
-            <url>http://softmedica.no-ip.biz:8081/artifactory/softmedica-releases/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

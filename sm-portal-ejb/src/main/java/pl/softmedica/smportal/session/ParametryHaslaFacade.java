@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.softmedica.ea.common.session.AbstractFacade;
-import pl.softmedica.ea.common.utilities.ListBuilder;
-import pl.softmedica.ea.common.utilities.Utilities;
+import pl.softmedica.smportal.common.session.AbstractFacade;
+import pl.softmedica.smportal.common.utilities.ListBuilder;
+import pl.softmedica.smportal.common.utilities.Utilities;
 import pl.softmedica.smportal.jpa.ParametryHasla;
 
 /**

@@ -21,9 +21,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import org.json.simple.JSONArray;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
-import pl.softmedica.ea.common.utilities.JSONObjectExt;
-import pl.softmedica.ea.common.utilities.Utilities;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONObjectExt;
+import pl.softmedica.smportal.common.utilities.Utilities;
 import pl.softmedica.smportal.jpa.AktualnieZalogowani;
 import pl.softmedica.smportal.session.AktualnieZalogowaniPortalFacadeLocal;
 

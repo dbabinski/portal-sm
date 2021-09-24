@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.HashMap;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import pl.softmedica.ea.common.utilities.JSONArrayBuilder;
-import pl.softmedica.ea.common.utilities.JSONObjectExt;
+import pl.softmedica.smportal.common.utilities.JSONArrayBuilder;
+import pl.softmedica.smportal.common.utilities.JSONObjectExt;
 
 /**
  *

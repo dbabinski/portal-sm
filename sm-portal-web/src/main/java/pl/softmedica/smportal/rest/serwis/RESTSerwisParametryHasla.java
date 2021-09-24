@@ -19,7 +19,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import org.json.simple.JSONObject;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
 import pl.softmedica.smportal.jpa.ParametryHasla;
 import pl.softmedica.smportal.rest.IpAdress;
 import pl.softmedica.smportal.rest.Odpowiedz;

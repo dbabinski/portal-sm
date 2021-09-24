@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pl.softmedica.ea.common.interfaces.InterfaceDatabaseObject;
-import pl.softmedica.ea.common.session.AbstractFacade;
+import pl.softmedica.smportal.common.interfaces.InterfaceDatabaseObject;
+import pl.softmedica.smportal.common.session.AbstractFacade;
 import pl.softmedica.smportal.jpa.Autentykacja;
 import pl.softmedica.smportal.jpa.Konta;
 

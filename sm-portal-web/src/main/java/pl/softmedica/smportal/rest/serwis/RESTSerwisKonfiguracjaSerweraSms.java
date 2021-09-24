@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
 import pl.softmedica.smportal.jpa.KonfiguracjaSerweraSms;
 import pl.softmedica.smportal.rest.IpAdress;
 import pl.softmedica.smportal.rest.Odpowiedz;

@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
 
 /**
  *

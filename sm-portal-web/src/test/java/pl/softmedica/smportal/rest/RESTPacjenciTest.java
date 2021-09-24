@@ -7,9 +7,9 @@ package pl.softmedica.smportal.rest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pl.softmedica.ea.common.utilities.JSONBuilder;
-import pl.softmedica.ea.common.utilities.JSONObjectExt;
-import pl.softmedica.ea.common.utilities.Utilities;
+import pl.softmedica.smportal.common.utilities.JSONBuilder;
+import pl.softmedica.smportal.common.utilities.JSONObjectExt;
+import pl.softmedica.smportal.common.utilities.Utilities;
 import pl.softmedica.smportal.jpa.UstawieniaPacjenta;
 
 /**

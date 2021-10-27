@@ -50,6 +50,16 @@ public class UprawnieniaFacade extends AbstractFacade<Uprawnienia> implements Up
         getEntityManager();
         super.remove(object);
     }  
+    @Override
+     public Uprawnienia findByIdGrupy(Integer idGrupy) {
+        if (idGrupy == null) {
+            return null;
+        }
+        return (Uprawnienia) em.createNativeQuery("SELECT * FROM uzytkownicy.uprawnienia WHERE id_grupy = :idGrupy", Uprawnienia.class)
+                .setParameter("idGrupy", idGrupy).getResultList()
+                .stream().findFirst().orElse(null);
+    }
+    
     //--------------------------------------------------------------------------
     // Metody prywatne
     //--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\RESTLogowania.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\slowniki\RESTSlownikiTypyGrup.java
+C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\PermissionsType.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\serwis\RESTSerwisKonfiguracjaSerweraPoczty.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\portal\RESTPortal.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\RESTApplication.java
@@ -7,10 +8,10 @@ C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\j
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\JacksonConfig.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\mailService\RESTMailService.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\RESTAuthenticationRequestFilter.java
-C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\kody\RESTJednorazoweKodyDostepu.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\uzytkownicy\RESTUzytkownicyUprawnienia.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\RESTWersja.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\Secured.java
+C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\PermissionsException.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\portal\RestAktualnosci.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\serwis\RESTSerwisBlokadaKonta.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\slowniki\RESTSlownikiKomorkiOrganizacyjne.java
@@ -22,6 +23,7 @@ C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\j
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\serwis\RESTSerwisKonfiguracjaSerweraSms.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\ClaimsExt.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\powiadomienia\RESTPowiadomieniaSzablonyPowiadomien.java
+C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\Permissions.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\CustomClaims.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\RESTImport.java
 C:\Users\Damian Babiñski\Documents\Repository\portal-sm\sm-portal-web\src\main\java\pl\softmedica\smportal\rest\serwis\RESTSerwisUstawieniaPacjenta.java

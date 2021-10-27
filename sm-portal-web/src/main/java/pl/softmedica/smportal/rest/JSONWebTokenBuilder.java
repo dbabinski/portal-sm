@@ -24,8 +24,8 @@ import javax.xml.bind.DatatypeConverter;
  */
 public class JSONWebTokenBuilder {
     
-    public static final String JWT_COOKIE = "e-uslugi.jwt";
-    public static final String META_COOKIE = "e-uslugi.meta";
+    public static final String JWT_COOKIE = "sm-portal.jwt";
+    public static final String META_COOKIE = "sm-portal.meta";
     public static final String LOGOUT_COOKIE = "LOGOUT";
     private static String SECRET_KEY = "Y1dMS3JPelN2dGVmbmpKbmo2QjBtSk1YTTE1UVRPWXppRVQ1";
     public static final int SESSION_TIME = 5;

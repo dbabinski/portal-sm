@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,11 +6,15 @@
 package pl.softmedica.smportal.rest;
 
 import io.jsonwebtoken.Claims;
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Base64;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.Cookie;
@@ -32,8 +36,10 @@ import pl.softmedica.smportal.jpa.AktualnieZalogowani;
 import pl.softmedica.smportal.jpa.Dostep;
 import pl.softmedica.smportal.jpa.Konfiguracja;
 import pl.softmedica.smportal.jpa.Konta;
+import pl.softmedica.smportal.jpa.KontaGrupy;
 import pl.softmedica.smportal.jpa.UprawnieniaKonta;
 import pl.softmedica.smportal.jpa.Logowania;
+import pl.softmedica.smportal.jpa.Uprawnienia;
 import pl.softmedica.smportal.session.AktualnieZalogowaniPortalFacadeLocal;
 import pl.softmedica.smportal.session.DostepFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
@@ -41,6 +47,7 @@ import pl.softmedica.smportal.session.KontaFacadeLocal;
 import pl.softmedica.smportal.session.LoginException;
 import pl.softmedica.smportal.session.UprawnieniaKontaFacadeLocal;
 import pl.softmedica.smportal.session.LogowaniaFacadeLocal;
+import pl.softmedica.smportal.session.UprawnieniaFacadeLocal;
 
 //@CookieParam(JWT) Cookie cookie
 /**
@@ -58,6 +65,8 @@ public class RESTAuthenticationEndpoint {
     private KontaFacadeLocal kontaFacade;
     @EJB
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
+    @EJB
+    private UprawnieniaFacadeLocal uprawnieniaFacade;
     @EJB
     private UprawnieniaKontaFacadeLocal uprawnieniaKontaFacade;
     @EJB
@@ -95,6 +104,8 @@ public class RESTAuthenticationEndpoint {
 
                 Konfiguracja konfiguracja = konfiguracjaFacade.find();
                 String domena = konfiguracja.getDomena();
+                
+                Uprawnienia uprawnienia = getUprawnienia(konto);
 
                 String jwt = new JSONWebTokenBuilder()
                         .put(ClaimsExt.ID, UUID.randomUUID().toString())
@@ -109,15 +120,16 @@ public class RESTAuthenticationEndpoint {
                         .put(ClaimsExt.LOGIN, konto.getLogin())
                         .put(ClaimsExt.SESSION_TIME, dlugoscSesji)
                         .put(ClaimsExt.DOMAIN, domena)
-                        .put(ClaimsExt.PERMISSIONS, getUprawnieniaKonta(konto.getId()))
+                        .put(ClaimsExt.PERMISSIONS, uprawnienia.getJSON().toJSONString())
                         .build();
 
                 NewCookie jwtCookie = new NewCookie(JSONWebTokenBuilder.JWT_COOKIE, jwt, "/", domena,
                         NewCookie.DEFAULT_VERSION, null, NewCookie.DEFAULT_MAX_AGE, dataWygasniecia, false, true);
                 String meta = new JSONBuilder()
                         .put(ClaimsExt.EMAIL, konto.getEmail())
+                        .put(ClaimsExt.PERMISSIONS, getPermissionsJSON(uprawnienia))
                         .build().toJSONString();
-                NewCookie metaCookie = new NewCookie(JSONWebTokenBuilder.META_COOKIE, meta, "/", domena,
+                NewCookie metaCookie = new NewCookie(JSONWebTokenBuilder.META_COOKIE, Base64.getEncoder().encodeToString(meta.getBytes()), "/", domena,
                         NewCookie.DEFAULT_VERSION, null, NewCookie.DEFAULT_MAX_AGE, dataWygasniecia, false, false);
 
                 Logowania l = new Logowania()
@@ -142,6 +154,8 @@ public class RESTAuthenticationEndpoint {
                                 .put(ClaimsExt.TOKEN, token)
                                 .put(ClaimsExt.EMAIL, konto.getEmail())
                                 .put(ClaimsExt.LOGIN, konto.getLogin())
+                                .put(ClaimsExt.SCOPE, konto.getIdGrupy() != null ? konto.getIdGrupy().getId() : null)
+                                .put(ClaimsExt.PERMISSIONS, getPermissionsJSON(uprawnienia))
                                 .build())
                         .cookie(jwtCookie)
                         .cookie(metaCookie)
@@ -200,12 +214,68 @@ public class RESTAuthenticationEndpoint {
         return Response.ok(new Odpowiedz().setKomunikat("Wylogowano")).cookie(jwtCookie).cookie(metaCookie).build();
     }
 
-    private String getUprawnieniaKonta(Integer idKonta) {
-        JSONBuilder jsonb = new JSONBuilder();
-        UprawnieniaKonta uprawnieniaKonta = uprawnieniaKontaFacade.findByIdKonta(idKonta);
-        if (uprawnieniaKonta != null) {
-            jsonb = new JSONBuilder(uprawnieniaKonta.getJSON());
+//    private String getUprawnieniaKonta(Integer idKonta) {
+//        JSONBuilder jsonb = new JSONBuilder();
+//        UprawnieniaKonta uprawnieniaKonta = uprawnieniaKontaFacade.findByIdKonta(idKonta);
+//        if (uprawnieniaKonta != null) {
+//            jsonb = new JSONBuilder(uprawnieniaKonta.getJSON());
+//        }
+//        return jsonb.build().toJSONString();
+//    }
+    
+//    private String getUprawnienia(Integer idGrupy) {
+//        JSONBuilder jsonb = new JSONBuilder();
+//        Uprawnienia uprawnienia = uprawnieniaFacade.findByIdGrupy(idGrupy);
+//        if (uprawnienia != null) {
+//        jsonb = new JSONBuilder(uprawnienia.getJSON());
+//        }
+//        return jsonb.build().toJSONString();
+//    }
+    
+    private Uprawnienia getUprawnienia(Konta konto) throws Exception {
+        if (konto != null) {
+            
+            Uprawnienia uprawnieniaKonta = new Uprawnienia();
+            List<KontaGrupy> grupyKonta = konto.getKontaGrupy();
+            List<Uprawnienia> uprawnieniaGrupKonta = new ArrayList<>();
+            grupyKonta.forEach(gk -> {
+                Uprawnienia uprawnienia = uprawnieniaFacade.findByIdGrupy(gk.getGrupa().getId());
+                uprawnieniaGrupKonta.add(uprawnienia);
+            });
+            
+            for (String nazwaUprawnienia : Uprawnienia.UPRAWNIENIA) {
+                int result = 0;
+                for (Uprawnienia uprawnienia : uprawnieniaGrupKonta) {
+                    Field field = Uprawnienia.class.getDeclaredField(nazwaUprawnienia);
+                    field.setAccessible(true);
+                    result |= field.getInt(uprawnienia);
+                }
+                Field field = Uprawnienia.class.getDeclaredField(nazwaUprawnienia);
+                field.setAccessible(true);
+                field.setInt(uprawnieniaKonta, result);
+            }
+            
+            return uprawnieniaKonta;
         }
-        return jsonb.build().toJSONString();
+        
+        return new Uprawnienia();
     }
+    
+    private JSONObject getPermissionsJSON(Uprawnienia uprawnienia) throws Exception {
+        JSONBuilder jsonb = new JSONBuilder();
+        for (String uprawnienie : Uprawnienia.UPRAWNIENIA) {
+            Field field = Uprawnienia.class.getDeclaredField(uprawnienie);
+            field.setAccessible(true);
+            Permissions permissions = new Permissions(field.getInt(uprawnienia));
+            jsonb.put(uprawnienie, new JSONBuilder()
+                    .put("read", permissions.isRead())
+                    .put("add", permissions.isAdd())
+                    .put("delete", permissions.isDelete())
+                    .put("update", permissions.isUpdate())
+                    .build());
+        }
+        return jsonb.build();
+    }
+    
+    
 }

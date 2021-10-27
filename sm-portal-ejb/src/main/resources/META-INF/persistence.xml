@@ -9,6 +9,7 @@
     <class>pl.softmedica.smportal.jpa.KomorkiOrganizacyjne</class>
     <class>pl.softmedica.smportal.jpa.Konfiguracja</class>
     <class>pl.softmedica.smportal.jpa.Konta</class>
+    <class>pl.softmedica.smportal.jpa.KontaGrupy</class>
     <class>pl.softmedica.smportal.jpa.Pacjenci</class>
     <class>pl.softmedica.smportal.jpa.ParametryHasla</class>
     <class>pl.softmedica.smportal.jpa.TypyDokumentow</class>

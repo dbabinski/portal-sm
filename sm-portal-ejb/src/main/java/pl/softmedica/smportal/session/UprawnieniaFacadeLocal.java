@@ -31,6 +31,8 @@ public interface UprawnieniaFacadeLocal {
     List<Uprawnienia> findAll();
 
     List<Uprawnienia> findRange(int[] range);
+    
+    Uprawnienia findByIdGrupy (Integer idGrupy);
 
     int count();
 

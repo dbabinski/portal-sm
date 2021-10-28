@@ -92,7 +92,10 @@
                                 <copy todir="../../SoftMedica-DIST/SM-Portal" flatten="true" overwrite="true" verbose="true" failonerror="true">
                                     <fileset dir="target"  includes="*.ear"/>
                                 </copy>
-                                <copy todir="\\wsl$\Ubuntu-20.04\home\dbabinski\docker-deployments\sm-portal-docker\volumes\wildfly\deployments" flatten="true" overwrite="true" verbose="true" failonerror="true">
+<!--                                <copy todir="\\wsl$\Ubuntu-20.04\home\dbabinski\docker-deployments\sm-portal-docker\volumes\wildfly\deployments" flatten="true" overwrite="true" verbose="true" failonerror="true">
+                                    <fileset dir="target"  includes="*.ear"/>
+                                </copy>-->
+                                <copy todir="Z:\home\klaudia\docker\sm-portal-docker\volumes\wildfly\deployments" flatten="true" overwrite="true" verbose="true" failonerror="true">
                                     <fileset dir="target"  includes="*.ear"/>
                                 </copy>
                             </tasks>

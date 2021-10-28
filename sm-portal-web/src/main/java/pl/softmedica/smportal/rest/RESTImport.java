@@ -26,13 +26,13 @@ import org.json.simple.JSONObject;
 import pl.softmedica.smportal.common.utilities.JSONBuilder;
 import pl.softmedica.smportal.common.utilities.JSONObjectExt;
 import pl.softmedica.smportal.jpa.Kontrahenci;
-import pl.softmedica.smportal.jpa.Pacjenci;
+import pl.softmedica.smportal.jpa.Klienci;
 import pl.softmedica.smportal.jpa.Pracownicy;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KontrahenciFacadeLocal;
-import pl.softmedica.smportal.session.PacjenciFacadeLocal;
 import pl.softmedica.smportal.session.PracownicyFacadeLocal;
 import pl.softmedica.smportal.session.TypyDokumentowFacadeLocal;
+import pl.softmedica.smportal.session.KlienciFacadeLocal;
 
 /**
  *
@@ -49,7 +49,7 @@ public class RESTImport {
     @Context
     HttpServletRequest httpRequest;
     @EJB
-    private PacjenciFacadeLocal pacjenciFacade;
+    private KlienciFacadeLocal pacjenciFacade;
     @EJB
     private TypyDokumentowFacadeLocal typyDokumentowFacade;
     @EJB
@@ -76,10 +76,10 @@ public class RESTImport {
                                 String kolumny = "";
                                 String dane = "";
                                 String obowiazkowe = "";
-                                for (Pacjenci.kolumnyDoImportu kolumna : Pacjenci.COLUMN_LIST) {
+                                for (Klienci.kolumnyDoImportu kolumna : Klienci.COLUMN_LIST) {
                                     kolumny = kolumny + kolumna.name() + ";";
-                                    dane = dane + Pacjenci.EXAMPLE_COLUMN_VALUES.get(kolumna) + ";";
-                                    obowiazkowe = obowiazkowe + (Pacjenci.OBLIGATORY_COLUMNS_MAP.get(kolumna) ? "(kolumna obowiązkowa)" : "") + ";";
+                                    dane = dane + Klienci.EXAMPLE_COLUMN_VALUES.get(kolumna) + ";";
+                                    obowiazkowe = obowiazkowe + (Klienci.OBLIGATORY_COLUMNS_MAP.get(kolumna) ? "(kolumna obowiązkowa)" : "") + ";";
                                 }
 
                                 //usuwanie zbędnego znaku ";" na końcu wiersza
@@ -238,7 +238,7 @@ public class RESTImport {
                                         JSONBuilder builder = new JSONBuilder();
                                         for (int j = 0; j < liczbaKolumn-1; j++) {
                                             String wartos = wiersz[j];
-                                            if(naglowki.get(j) != null && naglowki.get(j).equals(Pacjenci.kolumnyDoImportu.PLEC.name())){
+                                            if(naglowki.get(j) != null && naglowki.get(j).equals(Klienci.kolumnyDoImportu.PLEC.name())){
                                                 if (wiersz[j].equals("k")){
                                                     wartos = "Kobieta";
                                                 } else if(wiersz[j].equals("m")){
@@ -253,7 +253,7 @@ public class RESTImport {
 
                                         switch(tabela){
                                             case "pacjenci":
-                                                parseOdpowiedz = RESTPacjenci.parse(new JSONObjectExt(obj), null, pacjenciFacade, typyDokumentowFacade, null, null, null, null, null);
+                                                parseOdpowiedz = RESTKlienci.parse(new JSONObjectExt(obj), null, pacjenciFacade, typyDokumentowFacade, null, null, null, null, null);
                                                 break;
                                             case "pracownicy":
                                                 parseOdpowiedz = RESTPracownicy.parse(new JSONObjectExt(obj), pracownicyFacade);
@@ -288,8 +288,8 @@ public class RESTImport {
                                         switch(tabela){
                                             case "pacjenci":
                                                 for (JSONObject o : importList) {
-                                                    Pacjenci p = new Pacjenci().setJSON(o);
-                                                    pacjenciFacade = PacjenciFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
+                                                    Klienci p = new Klienci().setJSON(o);
+                                                    pacjenciFacade = KlienciFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
                                                     pacjenciFacade.create(p);
                                                 }
                                                 break;
@@ -342,7 +342,7 @@ public class RESTImport {
         
         switch(tabela){
             case "pacjenci":
-                for (Pacjenci.kolumnyDoImportu kolumna : Pacjenci.COLUMN_LIST) {
+                for (Klienci.kolumnyDoImportu kolumna : Klienci.COLUMN_LIST) {
                     if (listaNaglowkowZPliku.contains(kolumna.name())){
                         kolumnyOk.add(kolumna.name());
                     } else {
@@ -351,8 +351,8 @@ public class RESTImport {
                 }
                 
                 for(String kolumna : kolumnyBrak){
-                    if(Pacjenci.OBLIGATORY_COLUMNS_MAP.containsKey(Pacjenci.kolumnyDoImportu.valueOf(kolumna))){
-                        if(Pacjenci.OBLIGATORY_COLUMNS_MAP.get(Pacjenci.kolumnyDoImportu.valueOf(kolumna))){
+                    if(Klienci.OBLIGATORY_COLUMNS_MAP.containsKey(Klienci.kolumnyDoImportu.valueOf(kolumna))){
+                        if(Klienci.OBLIGATORY_COLUMNS_MAP.get(Klienci.kolumnyDoImportu.valueOf(kolumna))){
                             kolumnyWymagane.add(kolumna);
                         }
                     }

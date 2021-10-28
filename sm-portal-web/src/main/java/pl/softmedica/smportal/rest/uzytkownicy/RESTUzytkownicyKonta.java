@@ -37,7 +37,7 @@ import pl.softmedica.smportal.common.utilities.Validator;
 import pl.softmedica.smportal.rest.CustomClaims;
 import pl.softmedica.smportal.jpa.Grupy;
 import pl.softmedica.smportal.jpa.Konta;
-import pl.softmedica.smportal.jpa.PacjenciPowiazania;
+import pl.softmedica.smportal.jpa.KlienciPowiazania;
 import pl.softmedica.smportal.jpa.UprawnieniaKonta;
 import pl.softmedica.smportal.rest.IpAdress;
 import pl.softmedica.smportal.rest.Odpowiedz;
@@ -46,9 +46,9 @@ import pl.softmedica.smportal.rest.Secured;
 import pl.softmedica.smportal.session.GrupyFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KontaFacadeLocal;
-import pl.softmedica.smportal.session.PacjenciFacadeLocal;
-import pl.softmedica.smportal.session.PacjenciPowiazaniaFacadeLocal;
 import pl.softmedica.smportal.session.UprawnieniaKontaFacadeLocal;
+import pl.softmedica.smportal.session.KlienciFacadeLocal;
+import pl.softmedica.smportal.session.KlienciPowiazaniaFacadeLocal;
 
 /**
  *
@@ -71,9 +71,9 @@ public class RESTUzytkownicyKonta {
     @EJB
     private UprawnieniaKontaFacadeLocal uprawnieniaKontaFacade;
     @EJB
-    private PacjenciFacadeLocal pacjenciFacade;
+    private KlienciFacadeLocal klienciFacade;
     @EJB
-    private PacjenciPowiazaniaFacadeLocal pacjenciPowiazaniaFacade;
+    private KlienciPowiazaniaFacadeLocal klienciPowiazaniaFacade;
     @EJB
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
 
@@ -94,7 +94,7 @@ public class RESTUzytkownicyKonta {
                     //powiązani pacjenci                    
                     jsonArray.add(new JSONBuilder(item.getJSON())
                             .put("pacjenci", new JSONArrayBuilder()
-                                    .addAll(pacjenciFacade.getPacjenci(item.getId()))
+                                    .addAll(klienciFacade.getKlienci(item.getId()))
                                     .build())
                             .build());
                 });
@@ -122,12 +122,12 @@ public class RESTUzytkownicyKonta {
         } catch (NumberFormatException ex) {
         }
         if (id != 0) {
-            ArrayList<PacjenciPowiazania> powiazania = pacjenciPowiazaniaFacade.getPowiazaniaKonta(id);
+            ArrayList<KlienciPowiazania> powiazania = klienciPowiazaniaFacade.getPowiazaniaKonta(id);
             JSONArray jsonArray = new JSONArray();
             if (!powiazania.isEmpty()) {
-                for (PacjenciPowiazania powiazanie : powiazania) {
+                for (KlienciPowiazania powiazanie : powiazania) {
                     if (powiazanie.getNadrzedne()) {
-                        jsonArray.add(powiazanie.getPacjent().getJSON());
+                        jsonArray.add(powiazanie.getKlient().getJSON());
                     }
                 }
             }
@@ -152,12 +152,12 @@ public class RESTUzytkownicyKonta {
         } catch (NumberFormatException ex) {
         }
         if (id != 0) {
-            ArrayList<PacjenciPowiazania> powiazania = pacjenciPowiazaniaFacade.getPowiazaniaKonta(id);
+            ArrayList<KlienciPowiazania> powiazania = klienciPowiazaniaFacade.getPowiazaniaKonta(id);
             JSONArray jsonArray = new JSONArray();
             if (!powiazania.isEmpty()) {
-                for (PacjenciPowiazania powiazanie : powiazania) {
+                for (KlienciPowiazania powiazanie : powiazania) {
                     if (!powiazanie.getNadrzedne()) {
-                        jsonArray.add(powiazanie.getPacjent().getJSON());
+                        jsonArray.add(powiazanie.getKlient().getJSON());
                     }
                 }
             }

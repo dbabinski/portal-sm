@@ -10,7 +10,7 @@
     <class>pl.softmedica.smportal.jpa.Konfiguracja</class>
     <class>pl.softmedica.smportal.jpa.Konta</class>
     <class>pl.softmedica.smportal.jpa.KontaGrupy</class>
-    <class>pl.softmedica.smportal.jpa.Pacjenci</class>
+    <class>pl.softmedica.smportal.jpa.Klienci</class>
     <class>pl.softmedica.smportal.jpa.ParametryHasla</class>
     <class>pl.softmedica.smportal.jpa.TypyDokumentow</class>
     <class>pl.softmedica.smportal.jpa.TypyEDokumentow</class>
@@ -24,7 +24,7 @@
     <class>pl.softmedica.smportal.jpa.JednorazoweKodyDostepu</class>    
     <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraPoczty</class>
     <class>pl.softmedica.smportal.jpa.ZmianaHasla</class>
-    <class>pl.softmedica.smportal.jpa.PacjenciPowiazania</class>    
+    <class>pl.softmedica.smportal.jpa.KlienciPowiazania</class>    
     <class>pl.softmedica.smportal.jpa.Autentykacja</class>
     <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraSms</class>
     <class>pl.softmedica.smportal.jpa.SzablonyPowiadomien</class>

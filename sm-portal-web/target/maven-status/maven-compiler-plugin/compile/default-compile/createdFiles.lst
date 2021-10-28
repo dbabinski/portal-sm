@@ -8,7 +8,7 @@ pl\softmedica\smportal\rest\RESTAuthenticationResponseFilter.class
 pl\softmedica\smportal\rest\RESTImport.class
 pl\softmedica\smportal\rest\uzytkownicy\RESTZmianaHasla.class
 pl\softmedica\smportal\rest\portal\RestAktualnosci.class
-pl\softmedica\smportal\rest\RESTPacjenci.class
+pl\softmedica\smportal\rest\RESTKlienci.class
 pl\softmedica\smportal\rest\PermissionsException.class
 pl\softmedica\smportal\rest\IpAdress.class
 pl\softmedica\smportal\rest\RESTZalogowani.class

@@ -46,7 +46,9 @@ public class KlienciFacade extends AbstractFacade<Klienci> implements KlienciFac
             sql.append("\nWHERE")
                     .append("\nlower(imie || ' ' || nazwisko)    LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
                     .append("\nOR lower(nazwisko || ' ' || imie) LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
-                    .append("\nOR lower(pesel)                   LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
+                    .append("\nOR lower(nip)                   LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
+                    .append("\nOR lower(nazwa_klienta)                   LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
+                    .append("\nOR lower(nr_licencji)                   LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
                     .append("\nOR lower(email)                   LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'");
         }
         Query query = em.createNativeQuery(sql.toString(), Klienci.class);

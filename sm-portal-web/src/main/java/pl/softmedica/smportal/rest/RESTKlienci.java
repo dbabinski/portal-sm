@@ -47,14 +47,12 @@ import pl.softmedica.smportal.jpa.Klienci;
 import pl.softmedica.smportal.jpa.KlienciPowiazania;
 import pl.softmedica.smportal.jpa.ParametryHasla;
 import pl.softmedica.smportal.jpa.TypyDokumentow;
-import pl.softmedica.smportal.jpa.UstawieniaPacjenta;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaSerweraPocztyFacadeLocal;
 import pl.softmedica.smportal.session.KontaFacadeLocal;
 import pl.softmedica.smportal.session.ParametryHaslaFacade;
 import pl.softmedica.smportal.session.ParametryHaslaFacadeLocal;
 import pl.softmedica.smportal.session.TypyDokumentowFacadeLocal;
-import pl.softmedica.smportal.session.UstawieniaPacjentaFacadeLocal;
 import pl.softmedica.smportal.session.KlienciFacadeLocal;
 import pl.softmedica.smportal.session.KlienciPowiazaniaFacadeLocal;
 
@@ -80,8 +78,6 @@ public class RESTKlienci {
     private KlienciPowiazaniaFacadeLocal klienciPowiazaniaFacade;
     @EJB
     private TypyDokumentowFacadeLocal typyDokumentowFacade;
-    @EJB
-    private UstawieniaPacjentaFacadeLocal ustawieniaPacjentaFacade;
     @EJB
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
     @EJB
@@ -193,7 +189,7 @@ public class RESTKlienci {
      * Metodę wydzielono aby móc wykonać testy jednostkowe
      *
      * @param json
-     * @param ustawienia
+
      * @param klienciFacade
      * @param typyDokumentowFacade
      * @param konfiguracja
@@ -202,7 +198,6 @@ public class RESTKlienci {
      */
     public static Odpowiedz parse(
             JSONObjectExt json,
-            UstawieniaPacjenta ustawienia,
             KlienciFacadeLocal klienciFacade,
             TypyDokumentowFacadeLocal typyDokumentowFacade,
             Konfiguracja konfiguracja,
@@ -213,9 +208,6 @@ public class RESTKlienci {
         Odpowiedz odpowiedz = new Odpowiedz();
         JSONBuilder daneBuilder = new JSONBuilder();
         if (json != null) {
-            if (ustawienia == null) {
-                ustawienia = new UstawieniaPacjenta();
-            }
 
             LinkedHashMap<String, JSONArrayBuilder> mapaUwag = new LinkedHashMap<>();
             boolean samodzielnie = json.getBooleanSimple("samodzielnie"); // true - pacjent sam wypełnia formularz            
@@ -227,63 +219,24 @@ public class RESTKlienci {
                     RESTApplication.addToMap(mapaUwag, "regulamin", "nie zakceptowano regulaminu");
                 }
                 //--------------------------------------------------------------
-                if (konfiguracja != null && konfiguracja.getRecaptchaSecretKey() != null) {
-                    reCaptchaToken = json.getString("reCaptchaToken");
-                    if (reCaptchaToken == null) {
-                        RESTApplication.addToMap(mapaUwag, "recaptcha", "reCAPTCHA wymaga weryfikacji");
-                        LOGGER.log(Level.INFO, "reCaptchaToken is NULL");
-                    } else if (!RESTApplication.isCaptchaValid(konfiguracja.getRecaptchaSecretKey(), reCaptchaToken)) {
-                        RESTApplication.addToMap(mapaUwag, "recaptcha", "reCAPTCHA wymaga weryfikacji");
-                        LOGGER.log(Level.INFO, "reCaptchaToken is invalid");
-                    }
-
-                }
+//                if (konfiguracja != null && konfiguracja.getRecaptchaSecretKey() != null) {
+//                    reCaptchaToken = json.getString("reCaptchaToken");
+//                    if (reCaptchaToken == null) {
+//                        RESTApplication.addToMap(mapaUwag, "recaptcha", "reCAPTCHA wymaga weryfikacji");
+//                        LOGGER.log(Level.INFO, "reCaptchaToken is NULL");
+//                    } else if (!RESTApplication.isCaptchaValid(konfiguracja.getRecaptchaSecretKey(), reCaptchaToken)) {
+//                        RESTApplication.addToMap(mapaUwag, "recaptcha", "reCAPTCHA wymaga weryfikacji");
+//                        LOGGER.log(Level.INFO, "reCaptchaToken is invalid");
+//                    }
+//
+//                }
                 //--------------------------------------------------------------                
                 String haslo = json.getString("haslo");
                 LinkedList<String> uwagiDoHasla = ParametryHaslaFacade.sprawdz(parametryHasla, haslo);
                 if (!uwagiDoHasla.isEmpty()) {
                     RESTApplication.addToMap(mapaUwag, "haslo", uwagiDoHasla.stream().collect(Collectors.joining("<br>")).toString());
                 }
-                //--------------------------------------------------------------                
-//                String pesel = json.getString("pesel");
-//                if (pesel != null) {
-//                    List<Konta> konta = new LinkedList<>();
-//                    List<Klienci> klienciByPesel = klienciFacade.findByPesel(pesel);
-//                    if (!klienciByPesel.isEmpty()) {
-//                        klienciByPesel.forEach(klient -> {
-//                            klient.getPacjenciPowiazania().forEach(powiazanie -> {
-//                                if (powiazanie.getPacjent().getPesel().equals(pesel) && powiazanie.getNadrzedne() == true) {
-//                                    powiazanie.getKonto().setPacjentTransient(pacjent);
-//                                    konta.add(powiazanie.getKonto());
-//                                }
-//                            });
-//                        });
-//                        if (!konta.isEmpty()) {
-//                            RESTApplication.addToMap(mapaUwag, "pesel", "istnieje już konto z PESEL: " + pesel);
-//                            //powiadomienie o próbie załóżenia konta na istniejący w bazie PESEL
-//                            if (konfiguracja != null) {
-//                                String szablon = konfiguracja.getSzablonEmailPowiadomienieOWykorzystaniuDanychPESEL();
-//                                if (szablon != null) {
-//                                    konta.forEach(konto -> {
-//                                        try {
-//                                            String tresc = Mail.wypelnijSzablon(konto, konto.getPacjentTransient(), konfiguracja, szablon, null, null);
-//                                            new Mail()
-//                                                    .setSession(mailSession)
-//                                                    .setKonfiguracjaPoczty(konfiguracjaSerweraPoczty)
-//                                                    .setKonfiguracja(konfiguracja)
-//                                                    .setOdbiorcy(new ListBuilder<String>().append(konto.getEmail()).build())
-//                                                    .setTematWiadomosci("Próba założenia konta")
-//                                                    .setTrescWiadomosci(tresc)
-//                                                    .wyslij();
-//                                        } catch (Exception ex) {
-//                                            LOGGER.log(Level.SEVERE, ex.getMessage());
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
+
                 //--------------------------------------------------------------                
                 String login = json.getString("login");
                 if (login != null && kontaFacade != null) {
@@ -325,53 +278,53 @@ public class RESTKlienci {
                 //--------------------------------------------------------------                
             }
             //sprawdzenie wymaganych pól                        
-            JSONArray jsonPolaWymagane = (JSONArray) ustawienia.getJSON().get(samodzielnie ? "polaWymaganeSamodzielnie" : "polaWymagane");
-            jsonPolaWymagane.stream().forEach(poleWymagane -> {
-                if (json.isNull(poleWymagane)) {
-                    RESTApplication.addToMap(mapaUwag, (String) poleWymagane, "nie wypełniono pola " + Utilities.capitalizeFirstLetter(Klienci.MAPA_POL.get(poleWymagane)));
-                }
-            });
+//            JSONArray jsonPolaWymagane = (JSONArray) ustawienia.getJSON().get(samodzielnie ? "polaWymaganeSamodzielnie" : "polaWymagane");
+//            jsonPolaWymagane.stream().forEach(poleWymagane -> {
+//                if (json.isNull(poleWymagane)) {
+//                    RESTApplication.addToMap(mapaUwag, (String) poleWymagane, "nie wypełniono pola " + Utilities.capitalizeFirstLetter(Klienci.MAPA_POL.get(poleWymagane)));
+//                }
+//            });
             //PESEL
-            if (mapaUwag.get("pesel") == null
-                    && !Validator.isValidPesel(json.getString("pesel"))) {
-                RESTApplication.addToMap(mapaUwag, "pesel", "nieprawidłowy format PESEL");
-            }
+//            if (mapaUwag.get("pesel") == null
+//                    && !Validator.isValidPesel(json.getString("pesel"))) {
+//                RESTApplication.addToMap(mapaUwag, "pesel", "nieprawidłowy format PESEL");
+//            }
             //data urodzenia
-            if (!json.isNull("dataUrodzenia")) {
-                Date dataUrodzenia = json.getDate("dataUrodzenia");
-                if (dataUrodzenia == null) {
-                    RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "nieprawidłowy format daty urodzenia");
-                } else {
-                    //zgodność PESEL z datą urodzenia
-                    if (mapaUwag.get("pesel") == null) {
-                        String dataNaPodstawiePesel = Utilities.getDateFromPesel(json.getString("pesel"));
-                        if (!json.getString("dataUrodzenia").equals(dataNaPodstawiePesel)) {
-                            RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "data urodzenia niezgodna z PESEL");
-                        }
-                    }
-                }
-            }
+//            if (!json.isNull("dataUrodzenia")) {
+//                Date dataUrodzenia = json.getDate("dataUrodzenia");
+//                if (dataUrodzenia == null) {
+//                    RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "nieprawidłowy format daty urodzenia");
+//                } else {
+//                    //zgodność PESEL z datą urodzenia
+//                    if (mapaUwag.get("pesel") == null) {
+//                        String dataNaPodstawiePesel = Utilities.getDateFromPesel(json.getString("pesel"));
+//                        if (!json.getString("dataUrodzenia").equals(dataNaPodstawiePesel)) {
+//                            RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "data urodzenia niezgodna z PESEL");
+//                        }
+//                    }
+//                }
+//            }
             //minimalny wiek
-            if (ustawienia.getMinimalnyWiekPacjenta() != null) {
-                Integer wiek = null;
-                if (json.getDate("dataUrodzenia") != null) {
-                    wiek = Utilities.calculateAge(json.getDate("dataUrodzenia"));
-                } else if (mapaUwag.get("pesel") == null) {
-                    wiek = Utilities.calculateAge(Utilities.stringToDate(Utilities.getDateFromPesel(json.getString("pesel"))));
-                }
-                if (wiek != null && wiek < ustawienia.getMinimalnyWiekPacjenta()) {
-                    RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "Minimalny wiek pacjenta to " + ustawienia.getMinimalnyWiekPacjenta() + " "
-                            + Utilities.polishPlural("rok", "lata", "lat", wiek));
-                }
-            }
+//            if (ustawienia.getMinimalnyWiekPacjenta() != null) {
+//                Integer wiek = null;
+//                if (json.getDate("dataUrodzenia") != null) {
+//                    wiek = Utilities.calculateAge(json.getDate("dataUrodzenia"));
+//                } else if (mapaUwag.get("pesel") == null) {
+//                    wiek = Utilities.calculateAge(Utilities.stringToDate(Utilities.getDateFromPesel(json.getString("pesel"))));
+//                }
+//                if (wiek != null && wiek < ustawienia.getMinimalnyWiekPacjenta()) {
+//                    RESTApplication.addToMap(mapaUwag, "dataUrodzenia", "Minimalny wiek pacjenta to " + ustawienia.getMinimalnyWiekPacjenta() + " "
+//                            + Utilities.polishPlural("rok", "lata", "lat", wiek));
+//                }
+//            }
 
             //płeć zgodna z pesel
-            if (json.getString("plec") != null && mapaUwag.get("pesel") == null) {
-                String plec = Utilities.getSexFromPesel(json.getString("pesel")).toLowerCase();
-                if (!json.getString("plec").equalsIgnoreCase(plec)) {
-                    RESTApplication.addToMap(mapaUwag, "plec", "płeć niezgodna z numerem PESEL");
-                }
-            }
+//            if (json.getString("plec") != null && mapaUwag.get("pesel") == null) {
+//                String plec = Utilities.getSexFromPesel(json.getString("pesel")).toLowerCase();
+//                if (!json.getString("plec").equalsIgnoreCase(plec)) {
+//                    RESTApplication.addToMap(mapaUwag, "plec", "płeć niezgodna z numerem PESEL");
+//                }
+//            }
 
             //kod pocztowy
             if (json.getString("kodPocztowy") != null) {
@@ -393,27 +346,22 @@ public class RESTKlienci {
             }
 
             //numer dokumentu tożsamości
-            String numerDokumentuTozsamosci = json.getString("numerDokumentuTozsamosci");
-            Integer idTypDokumentuTozsamosci = json.getInteger("idTypDokumentuTozsamosci");
-            if (idTypDokumentuTozsamosci != null && numerDokumentuTozsamosci == null) {
-                RESTApplication.addToMap(mapaUwag, "numerDokumentuTozsamosci", "nie wypełniono pola " + Utilities.capitalizeFirstLetter(Klienci.MAPA_POL.get("numerDokumentuTozsamosci")));
-            }
-            if (numerDokumentuTozsamosci != null && idTypDokumentuTozsamosci != null && typyDokumentowFacade != null) {
-                TypyDokumentow typDokumentu = typyDokumentowFacade.find(idTypDokumentuTozsamosci);
-                if (typDokumentu != null && Utilities.stringToNull(typDokumentu.getFormatNumeracjiRegex()) != null) {
-                    Pattern pattern = Pattern.compile(typDokumentu.getFormatNumeracjiRegex());
-                    Matcher matcher = pattern.matcher(numerDokumentuTozsamosci);
-                    if (!matcher.matches()) {
-                        RESTApplication.addToMap(mapaUwag, "numerDokumentuTozsamosci", "nieprawidłowy format numeru dokumentu tożsamości");
-                    }
-                }
-            }
-
-//            if (mapaUwag.get("pesel") == null
-//                    && klienciFacade != null
-//                    && !klienciFacade.findByPesel(json.getString("pesel"), json.getInteger("id")).isEmpty()) {
-//                RESTApplication.addToMap(mapaUwag, "pesel", "zarejestrowano już pacjenta o numerze PESEL " + json.getString("pesel"));
+//            String numerDokumentuTozsamosci = json.getString("numerDokumentuTozsamosci");
+//            Integer idTypDokumentuTozsamosci = json.getInteger("idTypDokumentuTozsamosci");
+//            if (idTypDokumentuTozsamosci != null && numerDokumentuTozsamosci == null) {
+//                RESTApplication.addToMap(mapaUwag, "numerDokumentuTozsamosci", "nie wypełniono pola " + Utilities.capitalizeFirstLetter(Klienci.MAPA_POL.get("numerDokumentuTozsamosci")));
 //            }
+//            if (numerDokumentuTozsamosci != null && idTypDokumentuTozsamosci != null && typyDokumentowFacade != null) {
+//                TypyDokumentow typDokumentu = typyDokumentowFacade.find(idTypDokumentuTozsamosci);
+//                if (typDokumentu != null && Utilities.stringToNull(typDokumentu.getFormatNumeracjiRegex()) != null) {
+//                    Pattern pattern = Pattern.compile(typDokumentu.getFormatNumeracjiRegex());
+//                    Matcher matcher = pattern.matcher(numerDokumentuTozsamosci);
+//                    if (!matcher.matches()) {
+//                        RESTApplication.addToMap(mapaUwag, "numerDokumentuTozsamosci", "nieprawidłowy format numeru dokumentu tożsamości");
+//                    }
+//                }
+//            }
+
 
             mapaUwag.entrySet().stream().forEach(entry -> {
                 if (!entry.getValue().isEmpty()) {
@@ -427,10 +375,9 @@ public class RESTKlienci {
     }
 
     public static Odpowiedz parse(
-            JSONObjectExt json,
-            UstawieniaPacjenta ustawienia
+            JSONObjectExt json
     ) {
-        return parse(json, ustawienia, null, null, null, null, null, null, null);
+        return parse(json, null, null, null, null, null, null, null);
     }
 
     @POST
@@ -444,7 +391,6 @@ public class RESTKlienci {
         Odpowiedz odpowiedz = new Odpowiedz();
         try {
             odpowiedz = parse(json,
-                    ustawieniaPacjentaFacade.find(),
                     klienciFacade,
                     typyDokumentowFacade,
                     konfiguracjaFacade.find(),
@@ -466,7 +412,6 @@ public class RESTKlienci {
         Odpowiedz odpowiedz = new Odpowiedz();
         try {
             odpowiedz = parse(json,
-                    ustawieniaPacjentaFacade.find(),
                     klienciFacade,
                     typyDokumentowFacade,
                     null,
@@ -493,8 +438,10 @@ public class RESTKlienci {
         Odpowiedz odpowiedz = new Odpowiedz();
         if (json != null) {
             Odpowiedz wynikParsowania = parseTylkoDanePacjenta(request, json);
-            if (wynikParsowania.isBlad() || wynikParsowania.isUwaga()) {
+            if (wynikParsowania.isBlad()) {
                 return odpowiedz.setBlad(true).setKomunikat("Wykryto błąd w danych");
+            } else if (wynikParsowania.isUwaga()) {
+                return odpowiedz.setBlad(true).setKomunikat("Wykryto uwagę w danych");
             }
             try {
                 Integer id = null;

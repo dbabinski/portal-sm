@@ -2,10 +2,8 @@ pl\softmedica\smportal\rest\Permissions.class
 pl\softmedica\smportal\rest\serwis\RESTSerwisBlokadaKonta.class
 pl\softmedica\smportal\rest\CustomClaims.class
 pl\softmedica\smportal\rest\JSONWebTokenBuilder.class
-pl\softmedica\smportal\rest\serwis\RESTSerwisUstawieniaPacjenta.class
 pl\softmedica\smportal\rest\RESTApplication.class
 pl\softmedica\smportal\rest\RESTAuthenticationResponseFilter.class
-pl\softmedica\smportal\rest\RESTImport.class
 pl\softmedica\smportal\rest\uzytkownicy\RESTZmianaHasla.class
 pl\softmedica\smportal\rest\portal\RestAktualnosci.class
 pl\softmedica\smportal\rest\RESTKlienci.class
@@ -18,7 +16,6 @@ pl\softmedica\smportal\rest\Secured.class
 pl\softmedica\smportal\rest\RESTAuthenticationRequestFilter.class
 pl\softmedica\smportal\rest\slowniki\RESTSlownikiTypyKomunikatow.class
 pl\softmedica\smportal\rest\serwis\RESTSerwisKonfiguracjaSerweraPoczty.class
-pl\softmedica\smportal\rest\RESTKontrahenci.class
 pl\softmedica\smportal\rest\powiadomienia\RESTPowiadomieniaSzablonyPowiadomien.class
 pl\softmedica\smportal\rest\serwis\RESTSerwisKonfiguracja.class
 pl\softmedica\smportal\rest\JacksonConfig.class
@@ -41,4 +38,3 @@ pl\softmedica\smportal\rest\RESTLogowania.class
 pl\softmedica\smportal\rest\RESTLogi.class
 pl\softmedica\smportal\rest\serwis\RESTSerwisParametryHasla.class
 pl\softmedica\smportal\rest\uzytkownicy\RESTUzytkownicyUprawnienia.class
-pl\softmedica\smportal\rest\RESTPracownicy.class

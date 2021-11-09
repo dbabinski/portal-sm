@@ -19,8 +19,6 @@
     <class>pl.softmedica.smportal.jpa.Uprawnienia</class>
     <class>pl.softmedica.smportal.jpa.UprawnieniaKonta</class>
     <class>pl.softmedica.smportal.jpa.UstawieniaPacjenta</class>
-    <class>pl.softmedica.smportal.jpa.Kontrahenci</class>
-    <class>pl.softmedica.smportal.jpa.Pracownicy</class>
     <class>pl.softmedica.smportal.jpa.JednorazoweKodyDostepu</class>    
     <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraPoczty</class>
     <class>pl.softmedica.smportal.jpa.ZmianaHasla</class>

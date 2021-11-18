@@ -53,7 +53,7 @@ public interface KontaGrupyFacadeLocal {
     static KontaGrupyFacadeLocal create(Principal principal, String clientIpAdress) throws NamingException {
         InitialContext initialContext = new InitialContext();
         KontaGrupyFacadeLocal bean = (KontaGrupyFacadeLocal) initialContext
-                .lookup("java:app/euslugi-zarzadzanie-ejb/KontaGrupyFacade");
+                .lookup("java:app/sm-portal-ejb/KontaGrupyFacade");
         bean.setPrincipal(principal);
         bean.setClientIpAdress(clientIpAdress);
         return bean;

@@ -24,7 +24,7 @@ import pl.softmedica.smportal.common.utilities.JSONObjectExt;
 @ApplicationPath("/")
 public class RESTApplication extends Application {
 
-    public static String APLIKACJA = "euslugi.zarzadzanie";
+    public static String APLIKACJA = "sm-portal";
 
     //--------------------------------------------------------------------------
     // Konstruktor

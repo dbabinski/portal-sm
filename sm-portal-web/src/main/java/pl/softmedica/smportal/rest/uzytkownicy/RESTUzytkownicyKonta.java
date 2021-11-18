@@ -38,7 +38,6 @@ import pl.softmedica.smportal.rest.CustomClaims;
 import pl.softmedica.smportal.jpa.Grupy;
 import pl.softmedica.smportal.jpa.Konta;
 import pl.softmedica.smportal.jpa.KlienciPowiazania;
-import pl.softmedica.smportal.jpa.UprawnieniaKonta;
 import pl.softmedica.smportal.rest.IpAdress;
 import pl.softmedica.smportal.rest.Odpowiedz;
 import pl.softmedica.smportal.rest.RESTApplication;
@@ -46,7 +45,6 @@ import pl.softmedica.smportal.rest.Secured;
 import pl.softmedica.smportal.session.GrupyFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KontaFacadeLocal;
-import pl.softmedica.smportal.session.UprawnieniaKontaFacadeLocal;
 import pl.softmedica.smportal.session.KlienciFacadeLocal;
 import pl.softmedica.smportal.session.KlienciPowiazaniaFacadeLocal;
 
@@ -68,8 +66,6 @@ public class RESTUzytkownicyKonta {
     private GrupyFacadeLocal grupyFacade;
     @EJB
     private KontaFacadeLocal kontaFacade;
-    @EJB
-    private UprawnieniaKontaFacadeLocal uprawnieniaKontaFacade;
     @EJB
     private KlienciFacadeLocal klienciFacade;
     @EJB
@@ -331,8 +327,6 @@ public class RESTUzytkownicyKonta {
                     kontaFacade = KontaFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
                     Konta konto = new Konta().setHaslo().setJSON(json).setIdGrupy(grupa);
                     kontaFacade.create(konto);
-                    uprawnieniaKontaFacade = UprawnieniaKontaFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
-                    uprawnieniaKontaFacade.create(new UprawnieniaKonta().setIdKonta(konto));
                     odpowiedz.setKomunikat("Konto zostało zapisane");
                 }
             } catch (Exception ex) {

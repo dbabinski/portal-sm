@@ -48,7 +48,7 @@ public class RESTMailService {
 
     public static final Logger LOGGER = Logger.getLogger("pl.softmedica.ea");
 
-    @Resource(name = "java:jboss/mail/mail-euslugi_outgoing")
+    @Resource(name = "java:jboss/mail/mail-smportal_outgoing")
     private Session session;
     @EJB
     private KonfiguracjaSerweraPocztyFacadeLocal konfiguracjaSerweraPocztyFacade;

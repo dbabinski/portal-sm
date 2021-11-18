@@ -46,7 +46,7 @@ public class KontaFacade extends AbstractFacade<Konta> implements KontaFacadeLoc
     private KonfiguracjaSerweraPocztyFacadeLocal konfiguracjaSerweraPocztyFacade;
     @EJB
     private LogowaniaFacadeLocal logowaniaFacade;
-    @Resource(name = "java:jboss/mail/mail-euslugi_outgoing")
+    @Resource(name = "java:jboss/mail/mail-smportal_outgoing")
     private Session mailSession;
 
     //--------------------------------------------------------------------------

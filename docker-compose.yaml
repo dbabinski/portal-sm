@@ -6,6 +6,17 @@ networks:
     driver: bridge
 
 services:
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+     PGADMIN_DEFAULT_EMAIL: d.babinski94@gmail.com
+     PGADMIN_DEFAULT_PASSWORD: zaq12wsx
+    ports:
+     - 0.0.0.0:5050:80
+    networks:
+     - euslugi-net
 
   sm-portal-postgres:
     build:

@@ -84,7 +84,7 @@ public class RESTKlienci {
     private ParametryHaslaFacadeLocal parametryHaslaFacade;
     @EJB
     private KonfiguracjaSerweraPocztyFacadeLocal konfiguracjaSerweraPocztyFacade;
-    @Resource(name = "java:jboss/mail/mail-euslugi_outgoing")
+    @Resource(name = "java:jboss/mail/mail-smportal_outgoing")
     private Session mailSession;
 
     //--------------------------------------------------------------------------

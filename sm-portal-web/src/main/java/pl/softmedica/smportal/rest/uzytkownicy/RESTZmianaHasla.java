@@ -75,7 +75,7 @@ public class RESTZmianaHasla {
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
     @EJB
     private ZmianaHaslaFacadeLocal zmianaHaslaFacade;
-    @Resource(name = "java:jboss/mail/mail-euslugi_outgoing")
+    @Resource(name = "java:jboss/mail/mail-smportal_outgoing")
     private Session mailSession;
 
     @POST

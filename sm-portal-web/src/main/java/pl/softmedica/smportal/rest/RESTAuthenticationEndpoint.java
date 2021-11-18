@@ -37,7 +37,6 @@ import pl.softmedica.smportal.jpa.Dostep;
 import pl.softmedica.smportal.jpa.Konfiguracja;
 import pl.softmedica.smportal.jpa.Konta;
 import pl.softmedica.smportal.jpa.KontaGrupy;
-import pl.softmedica.smportal.jpa.UprawnieniaKonta;
 import pl.softmedica.smportal.jpa.Logowania;
 import pl.softmedica.smportal.jpa.Uprawnienia;
 import pl.softmedica.smportal.session.AktualnieZalogowaniPortalFacadeLocal;
@@ -45,7 +44,6 @@ import pl.softmedica.smportal.session.DostepFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KontaFacadeLocal;
 import pl.softmedica.smportal.session.LoginException;
-import pl.softmedica.smportal.session.UprawnieniaKontaFacadeLocal;
 import pl.softmedica.smportal.session.LogowaniaFacadeLocal;
 import pl.softmedica.smportal.session.UprawnieniaFacadeLocal;
 
@@ -67,8 +65,6 @@ public class RESTAuthenticationEndpoint {
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
     @EJB
     private UprawnieniaFacadeLocal uprawnieniaFacade;
-    @EJB
-    private UprawnieniaKontaFacadeLocal uprawnieniaKontaFacade;
     @EJB
     private LogowaniaFacadeLocal logowaniaFacade;
     @EJB
@@ -103,10 +99,12 @@ public class RESTAuthenticationEndpoint {
                 Date dataWygasniecia = Utilities.calculateDate(new Date(), Calendar.MINUTE, dlugoscSesji);
 
                 Konfiguracja konfiguracja = konfiguracjaFacade.find();
+                
                 String domena = konfiguracja.getDomena();
                 
                 Uprawnienia uprawnienia = getUprawnienia(konto);
-
+                              
+                
                 String jwt = new JSONWebTokenBuilder()
                         .put(ClaimsExt.ID, UUID.randomUUID().toString())
                         .put(ClaimsExt.ISSUED_AT, new Date().getTime())
@@ -131,7 +129,7 @@ public class RESTAuthenticationEndpoint {
                         .build().toJSONString();
                 NewCookie metaCookie = new NewCookie(JSONWebTokenBuilder.META_COOKIE, Base64.getEncoder().encodeToString(meta.getBytes()), "/", domena,
                         NewCookie.DEFAULT_VERSION, null, NewCookie.DEFAULT_MAX_AGE, dataWygasniecia, false, false);
-
+                
                 Logowania l = new Logowania()
                         .setIp(ip)
                         .setUuidKonta(konto.getUUID())
@@ -159,7 +157,7 @@ public class RESTAuthenticationEndpoint {
                                 .build())
                         .cookie(jwtCookie)
                         .cookie(metaCookie)
-                        .build();
+                        .build();        
             } else {
                 return Response.ok(odpowiedz.setBlad(true).setKomunikat("W czasie logowania wystąpił błąd")).build();
             }
@@ -175,7 +173,7 @@ public class RESTAuthenticationEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/logout")
     public Response logout(@Context HttpServletRequest req) {
-        
+            
         Konfiguracja konfiguracja = konfiguracjaFacade.find();
         String ip = IpAdress.getClientIpAddr(req);
         //usuwanie ciasteczka   
@@ -189,7 +187,7 @@ public class RESTAuthenticationEndpoint {
                 uuid = ((CustomClaims) claims).getUUID();
             }
         }
-
+        
         l = new Logowania()
                 .setIp(ip)
                 .setUuidKonta(uuid)
@@ -214,23 +212,7 @@ public class RESTAuthenticationEndpoint {
         return Response.ok(new Odpowiedz().setKomunikat("Wylogowano")).cookie(jwtCookie).cookie(metaCookie).build();
     }
 
-//    private String getUprawnieniaKonta(Integer idKonta) {
-//        JSONBuilder jsonb = new JSONBuilder();
-//        UprawnieniaKonta uprawnieniaKonta = uprawnieniaKontaFacade.findByIdKonta(idKonta);
-//        if (uprawnieniaKonta != null) {
-//            jsonb = new JSONBuilder(uprawnieniaKonta.getJSON());
-//        }
-//        return jsonb.build().toJSONString();
-//    }
-    
-//    private String getUprawnienia(Integer idGrupy) {
-//        JSONBuilder jsonb = new JSONBuilder();
-//        Uprawnienia uprawnienia = uprawnieniaFacade.findByIdGrupy(idGrupy);
-//        if (uprawnienia != null) {
-//        jsonb = new JSONBuilder(uprawnienia.getJSON());
-//        }
-//        return jsonb.build().toJSONString();
-//    }
+
     
     private Uprawnienia getUprawnienia(Konta konto) throws Exception {
         if (konto != null) {

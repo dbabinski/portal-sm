@@ -17,7 +17,6 @@
     <class>pl.softmedica.smportal.jpa.TypyGrup</class>
     <class>pl.softmedica.smportal.jpa.TypyKomunikatow</class>
     <class>pl.softmedica.smportal.jpa.Uprawnienia</class>
-    <class>pl.softmedica.smportal.jpa.UprawnieniaKonta</class>
     <class>pl.softmedica.smportal.jpa.UstawieniaPacjenta</class>
     <class>pl.softmedica.smportal.jpa.JednorazoweKodyDostepu</class>    
     <class>pl.softmedica.smportal.jpa.KonfiguracjaSerweraPoczty</class>

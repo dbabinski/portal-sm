@@ -2,10 +2,12 @@ version: '3'
 
 networks:
 
-  euslugi-net:
+  sm-portal-net:
     driver: bridge
 
 services:
+# PgAdmin
+# 
   pgadmin:
     container_name: pgadmin4
     image: dpage/pgadmin4
@@ -16,8 +18,10 @@ services:
     ports:
      - 0.0.0.0:5050:80
     networks:
-     - euslugi-net
+     - sm-portal-net
 
+# PostgreSQL
+# 
   sm-portal-postgres:
     build:
       context: ./sm-portal-docker/compose/postgres
@@ -30,12 +34,30 @@ services:
     ports:
       - 0.0.0.0:25432:5432
     networks:
-      - euslugi-net
+      - sm-portal-net
 
     volumes:
       - ./sm-portal-docker/volumes/postgres/:/var/lib/postgresql/data
     tty: true
 
+# Frontend Vue.js
+# 
+  sm-portal-front:
+    build: 
+      context: ./sm-portal-gui/app
+    image: sm-portal-front
+    restart: on-failure
+    container_name: sm-portal-front
+    ports:
+      - 0.0.0.0:28080:8080
+    volumes:
+      - ./sm-portal-gui/app/node_modules
+      - ./sm-portal-gui/app:/app
+    networks:
+      - sm-portal-net
+    
+# Backend WildFly
+# 
   sm-portal-wildfly:
     build:
         context: ./sm-portal-docker/compose/wildfly
@@ -49,10 +71,10 @@ services:
      - ./sm-portal-docker/volumes/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
     working_dir: /opt/jboss/wildfly/
     networks:
-      - euslugi-net
+      - sm-portal-net
     ports:
       # http
-      - 0.0.0.0:28080:8080
+      - 0.0.0.0:28081:8081
       # management-http
       - 0.0.0.0:29990:9990
       # debugger
@@ -71,21 +93,23 @@ services:
       - JAVA_OPTS=-Xms256m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Xdebug -Xrunjdwp:transport=dt_socket,address=*:8787,server=y,suspend=n
     links:
       - sm-portal-postgres
-    restart: always
     depends_on:
       - sm-portal-postgres
 
-  euslugi-proxy:
+  # Rev Proxy
+  # 
+  sm-portal-proxy:
     build:
       context: ./proxy/compose/nginx
-    image: euslugi-proxy
+    image: sm-portal-proxy
     restart: always
-    container_name: euslugi-proxy
+    container_name: sm-portal-proxy
     ports:
       - 0.0.0.0:80:80
       # - 0.0.0.0:443:443
     networks:
-      - euslugi-net
+      - sm-portal-net
     tty: true
     depends_on:
       - sm-portal-wildfly
+      - sm-portal-front

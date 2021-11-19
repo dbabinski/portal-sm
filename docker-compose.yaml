@@ -44,15 +44,15 @@ services:
 # 
   sm-portal-front:
     build: 
-      context: ./sm-portal-gui/app
+      context: ../portal-sm-gui/app/
     image: sm-portal-front
     restart: on-failure
     container_name: sm-portal-front
     ports:
       - 0.0.0.0:28080:8080
     volumes:
-      - ./sm-portal-gui/app/node_modules
-      - ./sm-portal-gui/app:/app
+      - ../portal-sm-gui/app/node_modules
+      - ../portal-sm-gui/app:/app
     networks:
       - sm-portal-net
     

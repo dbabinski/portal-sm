@@ -2,3 +2,5 @@
 /sm-portal-ejb/target/
 /sm-portal-ear/target/
 /sm-portal-web/target/
+
+sm-portal-gui/app/node_modules/

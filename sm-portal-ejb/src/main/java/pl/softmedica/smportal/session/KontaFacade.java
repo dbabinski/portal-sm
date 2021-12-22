@@ -84,7 +84,9 @@ public class KontaFacade extends AbstractFacade<Konta> implements KontaFacadeLoc
             sql.append("\nWHERE")
                     .append("\nlower(k.login)    LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
                     .append("\nOR lower(k.email) LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
-                    .append("\nOR lower(g.opis)  LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'");
+                    .append("\nOR lower(g.opis)  LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
+                    .append("\nOR lower(k.imie)  LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'")
+                    .append("\nOR lower(k.nazwisko)  LIKE '%' || lower(trim(both ' ' from regexp_replace(:filtr, '\\s{2,}', ' ', 'g'))) || '%'");
         }
         Query query = em.createNativeQuery(sql.toString(), Konta.class);
         if (filtr != null) {
@@ -120,7 +122,25 @@ public class KontaFacade extends AbstractFacade<Konta> implements KontaFacadeLoc
         return em.createNativeQuery("SELECT * FROM uzytkownicy.konta WHERE lower(email) = :email", Konta.class)
                 .setParameter("email", email.toLowerCase()).getResultList();
     }
+    
+    @Override
+    public List<Konta> findByName(String imie) {
+        if (Utilities.stringToNull(imie) == null) {
+            return new LinkedList<>();
+        }
+        return em.createNativeQuery("SELECT * FROM uzytkownicy.konta WHERE lower(imie) = :imie", Konta.class)
+                .setParameter("imie", imie.toLowerCase()).getResultList();
+    }
 
+    @Override
+    public List<Konta> findBySurname(String nazwisko) {
+        if (Utilities.stringToNull(nazwisko) == null) {
+            return new LinkedList<>();
+        }
+        return em.createNativeQuery("SELECT * FROM uzytkownicy.konta WHERE lower(nazwisko) = :nazwisko", Konta.class)
+                .setParameter("nazwisko", nazwisko.toLowerCase()).getResultList();
+    }
+    
     @Override
     public boolean czyLoginUnikalny(Integer id, String login) {
         if (login != null) {

@@ -44,6 +44,10 @@ public interface KontaFacadeLocal {
     List<Konta> findByLogin(String login);
 
     List<Konta> findByEmail(String email);
+    
+    List<Konta> findByName(String imie);
+    
+    List<Konta> findBySurname(String nazwisko);
 
     Konta findByUUID(String uuid);
 

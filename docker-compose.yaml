@@ -19,7 +19,8 @@ services:
      - 0.0.0.0:5050:80
     networks:
      - sm-portal-net
-
+    volumes:
+     - ./sm-portal-docker/volumes/pgadmin/:/var/lib/pgadmin/
 # PostgreSQL
 # 
   sm-portal-postgres:

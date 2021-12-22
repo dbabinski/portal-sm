@@ -126,6 +126,7 @@ public class RESTAuthenticationEndpoint {
                 String meta = new JSONBuilder()
                         .put(ClaimsExt.EMAIL, konto.getEmail())
                         .put(ClaimsExt.PERMISSIONS, getPermissionsJSON(uprawnienia))
+                        .put(ClaimsExt.ID, UUID.randomUUID().toString())
                         .build().toJSONString();
                 NewCookie metaCookie = new NewCookie(JSONWebTokenBuilder.META_COOKIE, Base64.getEncoder().encodeToString(meta.getBytes()), "/", domena,
                         NewCookie.DEFAULT_VERSION, null, NewCookie.DEFAULT_MAX_AGE, dataWygasniecia, false, false);

@@ -4,3 +4,7 @@
 /sm-portal-web/target/
 
 sm-portal-gui/app/node_modules/
+
+sm-portal-docker/volumes/wildfly/deployments/sm-portal-gui.war
+
+sm-portal-docker/volumes/wildfly/deployments/

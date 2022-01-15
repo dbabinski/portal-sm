@@ -38,6 +38,7 @@ import pl.softmedica.smportal.rest.CustomClaims;
 import pl.softmedica.smportal.jpa.Grupy;
 import pl.softmedica.smportal.jpa.Konta;
 import pl.softmedica.smportal.jpa.KlienciPowiazania;
+import pl.softmedica.smportal.jpa.KontaGrupy;
 import pl.softmedica.smportal.rest.IpAdress;
 import pl.softmedica.smportal.rest.Odpowiedz;
 import pl.softmedica.smportal.rest.RESTApplication;

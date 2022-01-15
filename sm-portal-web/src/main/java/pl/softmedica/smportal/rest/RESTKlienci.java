@@ -569,6 +569,20 @@ public class RESTKlienci {
                         if (pacjentZBazy != null) {
                             pacjentZBazy.setJSON(klientJSON);
                             klienciFacade.edit(pacjentZBazy);
+                            
+                            boolean isNadrzedny = json.getBooleanSimple("nadrzedny");
+                            Konta konto = kontaFacade.find(idKonto);
+                            KlienciPowiazania pp = new KlienciPowiazania();
+                            pp.setKonto(konto)
+                                .setKlient(pacjentZBazy)
+                                .setNadrzedne(isNadrzedny);
+
+                            klienciPowiazaniaFacade = KlienciPowiazaniaFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
+                            klienciPowiazaniaFacade.edit(pp);
+                            
+                            konto.getKlienciPowiazania().add(pp);
+                            pacjentZBazy.getKlienciPowiazania().add(pp);
+                            
                         } else {
                             odpowiedz.setBlad(true).setKomunikat("Nie odnaleziono artykułu o ID: " + idKlienta);
                         }

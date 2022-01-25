@@ -127,6 +127,7 @@ public class RESTAuthenticationEndpoint {
                         .put(ClaimsExt.EMAIL, konto.getEmail())
                         .put(ClaimsExt.PERMISSIONS, getPermissionsJSON(uprawnienia))
                         .put(ClaimsExt.ID, UUID.randomUUID().toString())
+                        .put("id", konto.getId())
                         .build().toJSONString();
                 NewCookie metaCookie = new NewCookie(JSONWebTokenBuilder.META_COOKIE, Base64.getEncoder().encodeToString(meta.getBytes()), "/", domena,
                         NewCookie.DEFAULT_VERSION, null, NewCookie.DEFAULT_MAX_AGE, dataWygasniecia, false, false);
@@ -155,6 +156,7 @@ public class RESTAuthenticationEndpoint {
                                 .put(ClaimsExt.LOGIN, konto.getLogin())
                                 .put(ClaimsExt.SCOPE, konto.getIdGrupy() != null ? konto.getIdGrupy().getId() : null)
                                 .put(ClaimsExt.PERMISSIONS, getPermissionsJSON(uprawnienia))
+                                .put("idKonta", konto.getId())
                                 .build())
                         .cookie(jwtCookie)
                         .cookie(metaCookie)

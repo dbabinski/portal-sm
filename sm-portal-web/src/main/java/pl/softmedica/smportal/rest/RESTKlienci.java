@@ -38,6 +38,7 @@ import pl.softmedica.smportal.common.utilities.JSONObjectExt;
 import pl.softmedica.smportal.common.utilities.ListBuilder;
 import pl.softmedica.smportal.common.utilities.Utilities;
 import pl.softmedica.smportal.common.utilities.Validator;
+import pl.softmedica.smportal.jpa.Grupy;
 import pl.softmedica.smportal.rest.CustomClaims;
 import pl.softmedica.smportal.jpa.Konfiguracja;
 import pl.softmedica.smportal.jpa.KonfiguracjaSerweraPoczty;
@@ -47,6 +48,7 @@ import pl.softmedica.smportal.jpa.Klienci;
 import pl.softmedica.smportal.jpa.KlienciPowiazania;
 import pl.softmedica.smportal.jpa.ParametryHasla;
 import pl.softmedica.smportal.jpa.TypyDokumentow;
+import pl.softmedica.smportal.session.GrupyFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaFacadeLocal;
 import pl.softmedica.smportal.session.KonfiguracjaSerweraPocztyFacadeLocal;
 import pl.softmedica.smportal.session.KontaFacadeLocal;
@@ -82,6 +84,8 @@ public class RESTKlienci {
     private KonfiguracjaFacadeLocal konfiguracjaFacade;
     @EJB
     private ParametryHaslaFacadeLocal parametryHaslaFacade;
+    @EJB
+    private GrupyFacadeLocal grupyFacade;
     @EJB
     private KonfiguracjaSerweraPocztyFacadeLocal konfiguracjaSerweraPocztyFacade;
     @Resource(name = "java:jboss/mail/mail-smportal_outgoing")
@@ -473,12 +477,16 @@ public class RESTKlienci {
                     }
                 } else {
                     //INSERT                                      
-                    boolean samodzielnie = json.getBooleanSimple("samodzielnie"); // true - pacjent sam wypełnia formularz            
+                    boolean samodzielnie = json.getBooleanSimple("samodzielnie"); // true - pacjent sam wypełnia formularz    
+                        Integer idGrupy = Integer.parseInt(json.get("idGrupa").toString());
+                        Grupy grupa = grupyFacade.find(idGrupy);
                     if (samodzielnie) {
                         Konta konto = new Konta()
                                 .setJSON(json)
                                 .setHaslo(BCrypt.hashpw(json.getString("haslo"), BCrypt.gensalt(12)))
-                                .setAkceptacjaRegulaminu(json.getBooleanSimple("regulamin") ? new Date() : null);
+                                .setAkceptacjaRegulaminu(json.getBooleanSimple("regulamin") ? new Date() : null)
+                                .setIdGrupy(grupa)
+                                .setKontoAktywne(true);
 
                         kontaFacade = KontaFacadeLocal.create(securityContext, IpAdress.getClientIpAddr(httpRequest));
                         kontaFacade.create(konto);
